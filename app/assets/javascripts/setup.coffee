@@ -1,0 +1,4 @@
+window.App = {
+  views: {}
+  models: {}
+}
