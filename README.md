@@ -27,7 +27,7 @@ Initial feature list:
 #### Parameters
 
 - The application should be single-page and communicate with the server using AJAX
-- You can include any open source libaries you want, with the exeption of full JavaScript frameworks like Ember and Angular.
+- You can include any open source libraries you want, with the exception of full JavaScript frameworks like Ember and Angular.
 In other words, stick with Backbone!
 
 #### Requirements
@@ -35,9 +35,9 @@ In other words, stick with Backbone!
 Fork this repo in github and send us the link to your project once you are done.
 
 - Optimize for good object-oriented design and an organized codebase
-- Readibilility is very important, comments are useful to explain tricky bits of logic, but use them sparingly
-- Don't worry about styling or visual asthetics
+- Readability is very important, comments are useful to explain tricky bits of logic, but use them sparingly
+- Don't worry about styling or visual aesthetics
 
 #### Getting Started
 
-You will need to have a working Rails enviornment with sqlite. Once you have cloned the repo, run `rake db:setup`. If you run into any issues getting started, email us and we can help.
+You will need to have a working Rails environment with sqlite. Once you have cloned the repo, run `rake db:setup`. If you run into any issues getting started, email us and we can help.
