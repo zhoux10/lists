@@ -12,12 +12,10 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20150313234647) do
-
-  create_table "items", force: :cascade do |t|
-    t.integer "parent_id"
-    t.string  "title"
-    t.text    "content"
-    t.integer "value"
+  create_table 'items', force: :cascade do |t|
+    t.integer  'parent_id'
+    t.string   'title'
+    t.text     'content'
+    t.integer  'value'
   end
-
 end
