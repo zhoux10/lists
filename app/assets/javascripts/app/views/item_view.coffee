@@ -6,11 +6,17 @@ class App.views.ItemView extends Backbone.View
   events: ->
     'click .delete-button': 'deleteItem'
     'click .edit-button': 'editContents'
+    'click .hide-children': 'hideChildren'
 
   render: ->
     @template = HandlebarsTemplates['item'](@item)
     @$el.html(@template)
-    @$el.append('<ol class= "children-of-' + @item.id + '" >')
+    @$childrenDiv = $('<ol class= "children-of-' + @item.id + '" >')
+    @$el.append(@$childrenDiv)
+
+    if @children.length > 0
+      @$el.find('h2').prepend('<button class="hide-children">-</button>')
+
     for child in @children
       @$el.find('ol.children-of-' + @item.id).append(child[0].$el)
     @$el
@@ -59,3 +65,12 @@ class App.views.ItemView extends Backbone.View
               $title.text(titleValue)
               $content.text(contentValue)
         });
+
+  hideChildren: (event) ->
+    $button = $(event.currentTarget)
+    if $button.text() == '-'
+      $button.text('+')
+      @$childrenDiv.hide();
+    else
+      $button.text('-')
+      @$childrenDiv.show();
