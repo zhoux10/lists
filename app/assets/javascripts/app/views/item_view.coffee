@@ -15,7 +15,9 @@ class App.views.ItemView extends Backbone.View
     @$el.append(@$childrenDiv)
 
     if @children.length > 0
-      @$el.append('<button class="hide-children">Hide Children</button>')
+      @$el.find('>.hide-children').show()
+    else
+      @$el.find('>.hide-children').hide()
 
     for child in @children
       @$el.find('ol.children-of-' + @item.id).append(child.$el)

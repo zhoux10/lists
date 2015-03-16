@@ -59,6 +59,7 @@ class App.views.LayoutView extends Backbone.View
               itemView = new App.views.ItemView(item)
               if parentValue
                 that.$el.find('.children-of-' + parentValue).prepend itemView.render()
+                that.$el.find('.item#' + parentValue + ' >.hide-children').show()
               else
                 that.$el.find('.main-list').prepend itemView.render()
         });
