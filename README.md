@@ -15,9 +15,9 @@ Initial feature list:
 #### Features
 
 - the user can view fully nested items
-- items maintain an order defined in the data model (add a position column)
+- items maintain an order defined in the data model (add a position column). This was done upon "save", though event listeners could have been used to save position upon 'sortstop'. However, since there was a "save" button already, I assumed it was used to trigger the function that saves the reordered positions
 - the user can collapse the nested item views (like closing a folder in a file explorer)
-- the user can edit the title and content values of each item and save the state to the database
+- the user can edit the title and content values of each item and save the state to the database. 
 - the user can drag and drop to reorder the items within a list
 - the user can drag and drop to nest an item under a different list
 

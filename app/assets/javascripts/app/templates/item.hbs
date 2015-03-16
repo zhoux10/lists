@@ -1,12 +1,10 @@
 <li class="item" id= {{ id }}>
-  <h2>
-    {{title}}
-    <button class="delete-button" id= {{ id }}>
-      X
-    </button>
-  </h2>
+  <form>
+    <h2>{{title}}</h2>
 
-  <p>
-    {{content}}
-  </p>
+    <button class="delete-button" id= {{ id }}>X</button>
+    <button class="edit-button" id= {{ id }}>Edit</button>
+
+    <p>{{content}}</p>
+  </form>
 </li>
