@@ -1,6 +1,7 @@
 class App.views.LayoutView extends Backbone.View
   initialize: (opts) ->
     @items = _.sortBy(opts.data, 'value')
+    @children = []
     @render()
 
   events: ->
@@ -15,8 +16,14 @@ class App.views.LayoutView extends Backbone.View
     for item in @items
       itemView = new App.views.ItemView(item)
       @$el.find('.main-list').append itemView.render()
+      @children.push(itemView)
 
     this.$('.main-list').sortable()
+    this.onRender()
+
+  onRender: ->
+    for child in @children
+      child.onRender()
 
   saveListOrder: (event) ->
     for item, value in @$el.find('.item')
