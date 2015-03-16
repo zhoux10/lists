@@ -59,10 +59,10 @@ class App.views.ItemView extends Backbone.View
     if $button.text() == 'Edit'
       $button.text('Save')
       $title.html('<input type="text" name="title" value="' + $title.text() + '">')
-      $content.html('<input type="text" name="content" value="' + $content.text()  + '">')
+      $content.html('<textarea name="content" >' + $content.text())
     else
       $button.text('Edit')
-      contentValue = $content.find('input').val()
+      contentValue = $content.find('textarea').val()
       titleValue = $title.find('input').val()
       $.ajax({
             url : 'items/' + @item.id,

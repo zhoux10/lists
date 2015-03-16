@@ -42,7 +42,10 @@ class App.views.LayoutView extends Backbone.View
     if $button.text() == 'New Item'
       $button.text('Save')
       $form.prepend(this.parentOptions())
-      $form.prepend('<input type="text" name="content" class="content" placeholder="Content">')
+
+      $form.prepend('<br>')
+      $form.prepend('<textarea name="content" class="content" placeholder="Content">')
+      $form.prepend('<br>')
       $form.prepend('<input type="text" name="title" class="title" placeholder="Title">')
     else
       $title =  $form.find('.title')
