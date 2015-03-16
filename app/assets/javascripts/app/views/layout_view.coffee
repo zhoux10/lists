@@ -32,26 +32,40 @@ class App.views.LayoutView extends Backbone.View
         });
 
   addNewItem: (event) ->
-    $button = event.currentTarget
+    $button = $(event.currentTarget)
     $form = @$el.find('.new-item-form')
 
     if $button.text() == 'New Item'
       $button.text('Save')
+      $form.prepend(this.parentOptions())
       $form.prepend('<input type="text" name="content" class="content" placeholder="Content">')
       $form.prepend('<input type="text" name="title" class="title" placeholder="Title">')
     else
       $title =  $form.find('.title')
       $content = $form.find('.content')
+      $parent = $form.find('.parent')
 
       $button.text('New Item')
+      parentValue = $parent.val()
       contentValue = $content.val()
       titleValue = $title.val()
       that = this
       $.ajax({
             url : 'items',
             type : 'POST',
-            data : {content: contentValue, title: titleValue, value: -1},
+            data : {parent_id: parentValue, content: contentValue, title: titleValue, value: -1},
             success : (item)->
+              $form.html($button)
               itemView = new App.views.ItemView(item)
-              that.$el.find('.main-list').prepend itemView.render()
+              if parentValue
+                that.$el.find('.children-of-' + parentValue).prepend itemView.render()
+              else
+                that.$el.find('.main-list').prepend itemView.render()
         });
+
+  parentOptions: ->
+    $container = $('<select class="parent">')
+    $container.append('<option value="">Choose parent list')
+    for child in @children
+      $container.append('<option value=' + child.id + '>' + child.item.title)
+    $container

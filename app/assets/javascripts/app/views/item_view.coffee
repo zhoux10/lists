@@ -18,7 +18,7 @@ class App.views.ItemView extends Backbone.View
       @$el.find('h2').prepend('<button class="hide-children">-</button>')
 
     for child in @children
-      @$el.find('ol.children-of-' + @item.id).append(child[0].$el)
+      @$el.find('ol.children-of-' + @item.id).append(child.$el)
     @$el
 
   attachChildren: ->
@@ -26,16 +26,20 @@ class App.views.ItemView extends Backbone.View
     if @item.children
       for child in @item.children
         itemView = new App.views.ItemView(child)
-        children.push([itemView, itemView.render()])
+        itemView.render()
+        children.push(itemView)
 
-    children
+    _.sortBy(children, this.getValue)
+
+  getValue: (view) ->
+    view.item.value
 
   onRender: ->
     @$el.find('ol.children-of-' + @item.id).sortable()
     unless @children.length == 0
       for child in @children
-        if child[0].onRender
-          child[0].onRender()
+        if child.onRender
+          child.onRender()
 
   deleteItem: (event) ->
     $.ajax({
