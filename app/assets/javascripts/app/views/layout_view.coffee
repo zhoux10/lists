@@ -26,7 +26,9 @@ class App.views.LayoutView extends Backbone.View
   saveListOrder: (event) ->
     for item, value in @$el.find('.item')
       parentID = @$el.find('div#' + item.id).parent().attr('class').split(" ")[0].split("-")[2]
-      parentID = @$el.find('div#' + item.id).parent().attr('class').split(" ")[0].split("-")[2]
+      unless parentID
+        parentID = null
+
       $.ajax({
             url : 'items/' + item.id,
             type : 'PATCH',
