@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   def create
-    @item = current_list.items.new(item_params)
+    @item = Item.new(item_params)
 
     if @item.save
       render json: @item

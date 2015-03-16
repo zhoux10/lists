@@ -33,8 +33,32 @@ class App.views.LayoutView extends Backbone.View
       });
     @$el.find('.item#' + item.id).remove()
 
+  addNewItem: (event) ->
+    button = event.currentTarget
+    $form = @$el.find('.new-item-form')
+
+    if $(button).text() == 'New Item'
+      $(button).text('Save')
+      $form.prepend('<input type="text" name="content" class="content" placeholder="Content">')
+      $form.prepend('<input type="text" name="title" class="title" placeholder="Title">')
+    else
+      $title =  $form.find('.title')
+      $content = $form.find('.content')
+
+      $(button).text('New Item')
+      contentValue = $content.val()
+      titleValue = $title.val()
+      that = this
+      $.ajax({
+            url : 'items',
+            type : 'POST',
+            data : {content: contentValue, title: titleValue, value: -1},
+            success : (item)->
+              itemView = new App.views.ItemView(item)
+              that.$el.find('.main-list').prepend itemView.render()
+        });
+
   editContents: (event) ->
-    event.preventDefault()
     button = event.currentTarget
     $listItem = @$el.find('.item#' + button.id)
     $title =  $listItem.find('h2')
