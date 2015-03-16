@@ -12,7 +12,7 @@ class App.views.LayoutView extends Backbone.View
     @$el.html HandlebarsTemplates['layout']()
 
     for item in @items
-      itemView = new App.views.ItemView(item)
+      itemView = new App.views.ItemView(item, 1)
       @$el.find('.main-list').append itemView.render()
       @children.push(itemView)
 
@@ -25,11 +25,12 @@ class App.views.LayoutView extends Backbone.View
 
   saveListOrder: (event) ->
     for item, value in @$el.find('.item')
+      parentID = @$el.find('div#' + item.id).parent().attr('class').split(" ")[0].split("-")[2]
       $.ajax({
             url : 'items/' + item.id,
             type : 'PATCH',
-            data : {value: value},
-        });
+            data : {value: value, parent_id: parentID},
+        })
 
   addNewItem: (event) ->
     $button = $(event.currentTarget)

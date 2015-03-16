@@ -1,7 +1,8 @@
 class App.views.ItemView extends Backbone.View
-  initialize: (item) ->
+  initialize: (item, level) ->
     @item = item
     @children = this.attachChildren();
+    @level = level
 
   events: ->
     'click >.delete-button': 'deleteItem'
@@ -11,7 +12,7 @@ class App.views.ItemView extends Backbone.View
   render: ->
     @template = HandlebarsTemplates['item'](@item)
     @$el.html(@template)
-    @$childrenDiv = $('<ol class= "children-of-' + @item.id + '" >')
+    @$childrenDiv = $('<ol class= "children-of-' + @item.id + ' level-' + @level + '" >')
     @$el.append(@$childrenDiv)
 
     if @children.length > 0
@@ -27,7 +28,7 @@ class App.views.ItemView extends Backbone.View
     children = []
     if @item.children
       for child in @item.children
-        itemView = new App.views.ItemView(child)
+        itemView = new App.views.ItemView(child, @level + 1)
         itemView.render()
         children.push(itemView)
 
@@ -37,7 +38,7 @@ class App.views.ItemView extends Backbone.View
     view.item.value
 
   onRender: ->
-    @$el.find('ol.children-of-' + @item.id).sortable()
+    @$el.find('ol.children-of-' + @item.id).sortable({connectWith: '.level-' + @level})
     unless @children.length == 0
       for child in @children
         if child.onRender
