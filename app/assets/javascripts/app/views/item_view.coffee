@@ -4,9 +4,9 @@ class App.views.ItemView extends Backbone.View
     @children = this.attachChildren();
 
   events: ->
-    'click .delete-button': 'deleteItem'
-    'click .edit-button': 'editContents'
-    'click .hide-children': 'hideChildren'
+    'click >.delete-button': 'deleteItem'
+    'click >.edit-button': 'editContents'
+    'click >.hide-children': 'hideChildren'
 
   render: ->
     @template = HandlebarsTemplates['item'](@item)
@@ -15,7 +15,7 @@ class App.views.ItemView extends Backbone.View
     @$el.append(@$childrenDiv)
 
     if @children.length > 0
-      @$el.find('h2').prepend('<button class="hide-children">-</button>')
+      @$el.append('<button class="hide-children">Hide Children</button>')
 
     for child in @children
       @$el.find('ol.children-of-' + @item.id).append(child.$el)
@@ -50,15 +50,15 @@ class App.views.ItemView extends Backbone.View
 
 
   editContents: (event) ->
-    button = event.currentTarget
-    $title =  @$el.find('h2')
-    $content = @$el.find('p')
-    if $(button).text() == 'Edit'
-      $(button).text('Save')
+    $button = $(event.currentTarget)
+    $title =  @$el.find('>h2')
+    $content = @$el.find('>p')
+    if $button.text() == 'Edit'
+      $button.text('Save')
       $title.html('<input type="text" name="title" value="' + $title.text() + '">')
       $content.html('<input type="text" name="content" value="' + $content.text()  + '">')
     else
-      $(button).text('Edit')
+      $button.text('Edit')
       contentValue = $content.find('input').val()
       titleValue = $title.find('input').val()
       $.ajax({
@@ -72,9 +72,9 @@ class App.views.ItemView extends Backbone.View
 
   hideChildren: (event) ->
     $button = $(event.currentTarget)
-    if $button.text() == '-'
-      $button.text('+')
+    if $button.text() == 'Hide Children'
+      $button.text('Show Children')
       @$childrenDiv.hide();
     else
-      $button.text('-')
+      $button.text('Hide Children')
       @$childrenDiv.show();
