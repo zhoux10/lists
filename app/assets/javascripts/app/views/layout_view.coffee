@@ -32,18 +32,18 @@ class App.views.LayoutView extends Backbone.View
         });
 
   addNewItem: (event) ->
-    button = event.currentTarget
+    $button = event.currentTarget
     $form = @$el.find('.new-item-form')
 
-    if $(button).text() == 'New Item'
-      $(button).text('Save')
+    if $button.text() == 'New Item'
+      $button.text('Save')
       $form.prepend('<input type="text" name="content" class="content" placeholder="Content">')
       $form.prepend('<input type="text" name="title" class="title" placeholder="Title">')
     else
       $title =  $form.find('.title')
       $content = $form.find('.content')
 
-      $(button).text('New Item')
+      $button.text('New Item')
       contentValue = $content.val()
       titleValue = $title.val()
       that = this
