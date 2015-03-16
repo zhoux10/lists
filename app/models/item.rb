@@ -12,5 +12,4 @@ class Item < ActiveRecord::Base
   def serialize
     to_json
   end
-
 end
