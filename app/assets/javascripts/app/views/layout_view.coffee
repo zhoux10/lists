@@ -5,6 +5,7 @@ class App.views.LayoutView extends Backbone.View
 
   events: ->
     'click .save-button': 'saveListOrder'
+    'click .delete-button': 'deleteList'
 
   render: ->
     @$el.html HandlebarsTemplates['layout']()
@@ -21,3 +22,11 @@ class App.views.LayoutView extends Backbone.View
             type : 'PATCH',
             data : {value: value},
         });
+
+  deleteList: (event) ->
+    item = event.currentTarget
+    $.ajax({
+          url : 'items/' + item.id,
+          type : 'DELETE',
+      });
+    @$el.find('.item#' + item.id).remove()
