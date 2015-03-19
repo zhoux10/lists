@@ -17,11 +17,11 @@ class App.views.LayoutView extends Backbone.View
       @children.push(itemView)
 
     this.$('.main-list').sortable()
-    this.onRender()
+    this.makeSortable()
 
-  onRender: ->
+  makeSortable: ->
     for child in @children
-      child.onRender()
+      child.makeSortable()
 
   saveListOrder: (event) ->
     for item, value in @$el.find('.item')

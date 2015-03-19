@@ -1,7 +1,7 @@
 class App.views.ItemView extends Backbone.View
   initialize: (item, level) ->
     @item = item
-    @children = this.attachChildren();
+    @children = this.childrenArray();
     @level = level
 
   events: ->
@@ -24,7 +24,7 @@ class App.views.ItemView extends Backbone.View
       @$el.find('ol.children-of-' + @item.id).append(child.$el)
     @$el
 
-  attachChildren: ->
+  childrenArray: ->
     children = []
     if @item.children
       for child in @item.children
@@ -37,12 +37,12 @@ class App.views.ItemView extends Backbone.View
   getValue: (view) ->
     view.item.value
 
-  onRender: ->
+  makeSortable: ->
     @$el.find('ol.children-of-' + @item.id).sortable({connectWith: '.level-' + @level})
     unless @children.length == 0
       for child in @children
-        if child.onRender
-          child.onRender()
+        if child.makeSortable
+          child.makeSortable()
 
   deleteItem: (event) ->
     $.ajax({
